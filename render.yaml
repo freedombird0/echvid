@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: echvid-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: your_credentials.json
+    autoDeploy: true
+
+  - type: static
+    name: echvid-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    autoDeploy: true

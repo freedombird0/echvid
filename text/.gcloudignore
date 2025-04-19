@@ -1,0 +1,21 @@
+# لا ترفِع مجلّدات التشغيل المؤقتة والوسائط الضخمة
+backend/uploads/
+backend/output/
+backend/audio/
+backend/frames/
+backend/subtitles/
+
+# لا ترفِع ملفات node_modules أو build folders
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+
+# لا ترفِع ملفات بيئة التطوير
+.env
+*.log
+
+# نماذج وملفات كبيرة أخرى
+models/
+scripts/
+static/assets/

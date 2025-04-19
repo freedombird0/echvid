@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-gray-800 p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold text-center text-[#38bdf8] mb-6">📋 {{ t['summary_title'] }}</h2>
+
+  <div class="bg-gray-900 p-6 rounded text-white max-h-[400px] overflow-y-auto whitespace-pre-wrap border border-gray-700">
+    {{ summary }}
+  </div>
+
+  <form action="{{ url_for('translate_text', filename=filename) }}" method="post" class="mt-6 text-center">
+    <label for="language" class="text-white text-lg block mb-2">🌍 {{ t['choose_language'] }}:</label>
+    <select name="language" id="language" required class="bg-gray-700 text-white px-3 py-2 rounded">
+      {% for code, name in languages.items() %}
+        <option value="{{ code }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="ml-4 bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-xl">
+      🔄 {{ t['translate_button'] }}
+    </button>
+  </form>
+
+  <div class="flex justify-center mt-6">
+    <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-6 rounded-xl">
+      🏠 {{ t['back_home'] }}
+    </a>
+  </div>
+</div>
+{% endblock %}

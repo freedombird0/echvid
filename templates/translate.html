@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-gray-800 p-8 rounded-xl shadow-xl max-w-3xl mx-auto">
+  <h2 class="text-3xl font-bold text-center text-[#38bdf8] mb-6">
+    {{ t['translated_text'] }}
+  </h2>
+
+  <form method="POST" action="{{ url_for('translate_text', filename=filename) }}">
+    <div class="flex items-center justify-between mb-4">
+      <label class="text-white text-lg">{{ t['language'] }}:</label>
+      <select name="lang_code" class="bg-gray-700 text-white px-3 py-2 rounded">
+        {% for code, name in languages.items() %}
+          <option value="{{ code }}" {% if code == lang_code %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <textarea name="custom_text" class="w-full h-64 p-4 text-white bg-gray-900 border border-gray-600 rounded resize-y">{{ translated_text }}</textarea>
+
+    <div class="flex justify-center gap-4 mt-6 flex-wrap">
+      <button type="submit" class="bg-[#38bdf8] hover:bg-[#0ea5e9] text-[#0f172a] font-bold py-2 px-6 rounded-xl">
+        {{ t['save_button'] }}
+      </button>
+      <a href="{{ url_for('generate_audio', filename=filename, lang_code=lang_code) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-xl">
+        {{ t['to_audio'] }}
+      </a>
+      <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-6 rounded-xl">
+        {{ t['back_home'] }}
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

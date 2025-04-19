@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ lang_code }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ t['title'] if t['title'] else 'Echvid' }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <!-- Navigation -->
+  <nav class="bg-gray-800 shadow p-4 flex justify-between items-center">
+    <div class="text-2xl font-bold text-[#38bdf8]">
+      <a href="/">ECHVID</a>
+    </div>
+    <div class="space-x-4">
+      <a href="/" class="hover:underline">{{ t['home'] }}</a>
+      <a href="/cleanup" class="hover:underline">{{ t['cleanup'] }}</a>
+      <form method="get" class="inline">
+        <select name="lang" onchange="this.form.submit()" class="bg-gray-700 text-white p-1 rounded">
+          {% for code, name in languages.items() %}
+            <option value="{{ code }}" {% if code == lang_code %}selected{% endif %}>{{ name }}</option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="p-6 max-w-7xl mx-auto">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-400 mt-16 py-6">
+    &copy; 2025 Echvid AI. All rights reserved.
+  </footer>
+</body>
+</html>

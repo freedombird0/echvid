@@ -1,0 +1,71 @@
+import os
+import cv2
+import subprocess
+from moviepy.editor import AudioFileClip
+
+# Set required folders
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+OUTPUT_FOLDER = os.path.join(BASE_DIR, "output")
+FRAMES_FOLDER = os.path.join(BASE_DIR, "frames")
+AUDIO_FOLDER = os.path.join(BASE_DIR, "audio")
+
+# Ensure folders exist
+for folder in [UPLOAD_FOLDER, OUTPUT_FOLDER, FRAMES_FOLDER, AUDIO_FOLDER]:
+    os.makedirs(folder, exist_ok=True)
+
+def generate_video(filename):
+    video_path = os.path.join(UPLOAD_FOLDER, filename)
+    audio_output = os.path.join(AUDIO_FOLDER, "translated_audio.mp3")
+    raw_output_video = os.path.join(OUTPUT_FOLDER, f"raw_{filename}")
+    final_output = os.path.join(OUTPUT_FOLDER, f"final_{filename}")
+
+    if not os.path.exists(audio_output):
+        print("❌ Translated audio file not found!")
+        return
+
+    # Extract frames
+    video = cv2.VideoCapture(video_path)
+    fps = video.get(cv2.CAP_PROP_FPS)
+    frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_interval = max(1, int(fps * 2))
+
+    frame_files = []
+    for i in range(0, frame_count, frame_interval):
+        video.set(cv2.CAP_PROP_POS_FRAMES, i)
+        success, frame = video.read()
+        if success:
+            frame_filename = os.path.join(FRAMES_FOLDER, f'frame_{i}.jpg')
+            cv2.imwrite(frame_filename, frame)
+            frame_files.append(frame_filename)
+    video.release()
+
+    if not frame_files:
+        print("❌ No frames were extracted from the video!")
+        return
+
+    # Create video from frames
+    first_frame = cv2.imread(frame_files[0])
+    height, width, _ = first_frame.shape
+    video_writer = cv2.VideoWriter(raw_output_video, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+
+    for frame_file in frame_files:
+        frame = cv2.imread(frame_file)
+        video_writer.write(frame)
+
+    video_writer.release()
+    print("✅ Video created from frames!")
+
+    # Attach audio
+    audio_clip = AudioFileClip(audio_output)
+    subprocess.run([
+        "ffmpeg", "-y", "-i", raw_output_video, "-i", audio_output,
+        "-c:v", "libx264", "-c:a", "aac", "-b:a", "192k",
+        "-shortest", final_output
+    ])
+
+    print(f"✅ Final video with audio saved to: {final_output}")
+
+if __name__ == "__main__":
+    filename = input("🎥 Enter the video filename from the 'uploads' folder: ")
+    generate_video(filename)
