@@ -1,0 +1,19 @@
+# تجاهل node_modules من المضيف
+node_modules
+frontend/node_modules
+backend/node_modules
+
+# تجاهل سكريبتات وبيانات
+scripts/
+models/
+backend/uploads/
+backend/output/
+backend/audio/
+backend/frames/
+backend/subtitles/
+backend/logs/
+
+# تجاهل ملفات البيئة
+.env
+venv/
+.venv/

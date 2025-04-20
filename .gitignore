@@ -1,0 +1,32 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.log
+.env
+venv/
+.venv/
+
+# Backend temp/data outputs
+backend/uploads/
+backend/output/
+backend/audio/
+backend/frames/
+backend/subtitles/
+backend/data/
+backend/logs/
+
+# Frontend deps & build
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# React static (مكرر)
+static/assets/
+static/vite.svg
+
+# نماذج كبيرة — تُدار عبر LFS
+backend/models/*.pt
+
+# System
+.DS_Store
+Thumbs.db

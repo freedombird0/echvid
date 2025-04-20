@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-gray-800 p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+  <h2 class="text-3xl font-bold text-center text-[#38bdf8] mb-6">
+    📝 {{ t['extracted_title'] }}: {{ filename }}
+  </h2>
+
+  <div class="bg-gray-900 p-6 rounded text-white max-h-[400px] overflow-y-auto whitespace-pre-wrap border border-gray-700">
+    {{ text }}
+  </div>
+
+  <div class="flex justify-center gap-4 mt-6 flex-wrap">
+    <a href="{{ url_for('summarize_text', filename=filename) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-xl">
+      🔍 {{ t['summarize_button'] }}
+    </a>
+    <a href="/" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-6 rounded-xl">
+      🔄 {{ t['back_home'] }}
+    </a>
+  </div>
+</div>
+{% endblock %}
