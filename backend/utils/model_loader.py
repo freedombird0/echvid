@@ -6,7 +6,7 @@ MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "medium.pt"
 # رابط GCS للحصول على النموذج
 DOWNLOAD_URL = os.getenv(
     "MODEL_DOWNLOAD_URL",
-    "https://storage.googleapis.com/echvid-models-video-mov/models/medium.pt"
+    "https://storage.cloud.google.com/echvid-models-video-mov/models/medium.pt"
 )
 
 def ensure_model():

@@ -1,4 +1,4 @@
-# Python artifacts
+# 🐍 Python
 __pycache__/
 *.py[cod]
 *.log
@@ -6,7 +6,7 @@ __pycache__/
 venv/
 .venv/
 
-# Backend temp/data outputs
+# 📁 Backend temporary & output directories
 backend/uploads/
 backend/output/
 backend/audio/
@@ -15,18 +15,21 @@ backend/subtitles/
 backend/data/
 backend/logs/
 
-# Frontend deps & build
+# 🎬 Models - Large files (should use Git LFS)
+backend/models/*.pt
+
+# ⚛️ Frontend dependencies & builds
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
 
-# React static (مكرر)
+# 🔁 Static output (copied from frontend build)
 static/assets/
 static/vite.svg
 
-# نماذج كبيرة — تُدار عبر LFS
-backend/models/*.pt
-
-# System
+# 🗂️ Common system junk
 .DS_Store
 Thumbs.db
+
+# 🧱 Root-level node_modules if exists
+node_modules/
